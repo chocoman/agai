@@ -6,5 +6,5 @@ def get_features(X):
     pixels = np.round(np.ndarray.flatten(X))
     nwhite = int(np.sum(pixels))
     features = np.zeros(len(pixels))
-    features[0:nwhite] = 1
+    features[nwhite] = 1
     return features

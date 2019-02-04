@@ -1,44 +1,45 @@
 import numpy as np
 import mnist
 import pdb
-from descriptors import black_features, white_features,nwhite_features
-NCLASSES = 10
+from descriptors import *
 
-def get_features(X):
-    return np.concatenate((
-        white_features.get_features(X),
-        black_features.get_features(X),
-        nwhite_features.get_features(X),
-    ))
+class nb_mnist:
 
-def classify(features):
-    likelihoods = np.ones((10,))
-    for c in range(NCLASSES):
-        for i in range(nfeatures):
-            if (features[i]):
-                likelihoods[c] += log_probability[i,c]
-    return np.argmax(likelihoods)
+    def __init__(self):
+        self.trX, self.trY, self.teX, self.teY = mnist.load_data(
+                one_hot=False, flatten=False)
+        self.NCLASSES = 10
 
-trX, trY, teX, teY = mnist.load_data(one_hot=False, flatten=False)
+    def classify(self, features):
+        log_likelihoods = np.zeros((self.NCLASSES,))
+        for c in range(self.NCLASSES):
+            for i in range(self.nfeatures):
+                if (features[i]):
+                    log_likelihoods[c] += self.log_probability[i,c]
+        return np.argmax(log_likelihoods + self.log_priors)
 
-# probability[i][j] is P(class == j, feature[j] == True)
-nfeatures = len(get_features(trX[0]))
-probability = np.zeros((nfeatures, NCLASSES))
+    def train(self, get_features):
+        # probability[i][j] is P(class == j, feature[j] == True)
+        self.nfeatures = len(get_features(self.trX[0]))
+        probability = np.zeros((self.nfeatures, self.NCLASSES))
+        priors = np.zeros((self.NCLASSES))
+        
+        nsamples = self.trX.shape[0]
+        for i in range(nsamples):
+            image_class = self.trY[i]
+            priors[image_class] += 1
+            features = get_features(self.trX[i])
+            probability[:,image_class] += features
+        self.log_probability = np.log((probability + 0.000001)/nsamples)
+        self.log_priors = np.log((priors + 0.000001)/nsamples)
+        print('priors' + str(priors))
 
-for i in range(trX.shape[0]):
-    image_class = trY[i]
-    features = get_features(trX[i])
-    probability[:,image_class] += features
-log_probability = np.log(probability + 0.000001)
-
-ncorrect = 0
-for i in range(teX.shape[0]):
-    features = get_features(teX[i])
-    prediction = classify(features)
-    if (prediction == teY[i]):
-        ncorrect += 1
-    if (i % 100 == 0 and i > 0):
-        print(ncorrect/(i+0.001))
-
-
-pdb.set_trace()
+    def test(self, get_features):
+        ncorrect = 0
+        for i in range(self.teX.shape[0]):
+            features = get_features(self.teX[i])
+            prediction = self.classify(features)
+            if (prediction == self.teY[i]):
+                ncorrect += 1
+            if (i % 100 == 0 and i > 0):
+                print(ncorrect/i)
