@@ -1,6 +1,5 @@
 import numpy as np
 import pdb
-import matplotlib.pyplot as plt
 # authors: Martin Spanel
 
 def get_features(X):
