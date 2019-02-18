@@ -9,5 +9,6 @@ def get_features(X):
     edges = X[2:,:] - X[:height-2,:]
     ret = np.zeros(edges.shape)
     ret[edges > 0] = 1
-    visualize_matrix(ret)
+    # visualize_matrix(ret)
+    # pdb.set_trace()
     return np.ndarray.flatten(ret)
