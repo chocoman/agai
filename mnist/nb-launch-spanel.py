@@ -6,8 +6,8 @@ from nb import nb_mnist
 
 def get_features(X):
     return np.concatenate((
-        white_features.get_features(X),
-        black_features.get_features(X),
+        # white_features.get_features(X),
+        # black_features.get_features(X),
         # nwhite_features.get_features(X),
         # random_features.get_features(X),
         # top_heavy.get_features(X),
