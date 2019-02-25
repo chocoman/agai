@@ -19,10 +19,10 @@ class nb_mnist:
         return np.argmax(log_likelihoods + self.log_priors)
 
     def train(self, get_features):
+        self.nfeatures = len(get_features(self.trX[0])) # zjistime pocet priznaku zavolanim funkce get_features
         # probability[i][j] is P(class == j, feature[j] == True)
-        self.nfeatures = len(get_features(self.trX[0]))
         probability = np.zeros((self.nfeatures, self.NCLASSES))
-        priors = np.zeros((self.NCLASSES))
+        priors = np.zeros((self.NCLASSES)) # pravdepodobnost jednotlivych trid bez ohledu na priznaky
         
         nsamples = self.trX.shape[0]
         for i in range(nsamples):
@@ -30,16 +30,20 @@ class nb_mnist:
             priors[image_class] += 1
             features = get_features(self.trX[i])
             probability[:,image_class] += features
+        pdb.set_trace()
         self.log_probability = np.log((probability + 0.000001)/nsamples)
         self.log_priors = np.log((priors + 0.000001)/nsamples)
-        print('priors' + str(priors))
 
     def test(self, get_features):
         ncorrect = 0
+        confusion = np.zeros((self.NCLASSES, self.NCLASSES))
         for i in range(self.teX.shape[0]):
             features = get_features(self.teX[i])
             prediction = self.classify(features)
+            confusion[self.teY[i], prediction] += 1
             if (prediction == self.teY[i]):
                 ncorrect += 1
             if (i % 100 == 0 and i > 0):
                 print(ncorrect/i)
+        print(confusion)
+        print(ncorrect/i)
