@@ -30,7 +30,6 @@ class nb_mnist:
             priors[image_class] += 1
             features = get_features(self.trX[i])
             probability[:,image_class] += features
-        pdb.set_trace()
         self.log_probability = np.log((probability + 0.000001)/nsamples)
         self.log_priors = np.log((priors + 0.000001)/nsamples)
 
