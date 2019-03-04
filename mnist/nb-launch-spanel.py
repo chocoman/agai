@@ -7,9 +7,9 @@ from perceptron import perceptron_mnist
 
 def get_features(X):
     return np.concatenate((
-        # white_features.get_features(X),
-        # black_features.get_features(X),
-        # nwhite_features.get_features(X),
+        white_features.get_features(X),
+        black_features.get_features(X),
+        nwhite_features.get_features(X),
         # random_features.get_features(X),
         # top_heavy.get_features(X),
         # ones.get_features(X),
@@ -17,6 +17,6 @@ def get_features(X):
     ))
 
 # classifier = nb_mnist()
-classifier = perceptron_mnist(1)
-classifier.train(get_features,3)
+classifier = perceptron_mnist(4)
+classifier.train(get_features,1)
 classifier.test(get_features)

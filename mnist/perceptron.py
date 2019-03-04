@@ -24,7 +24,7 @@ class perceptron_mnist:
         self.w = np.zeros((self.nfeatures, self.NCLASSES))
         nsamples = self.trX.shape[0]
         for epoch in range(nepochs):
-            nerrors = 0 
+            nerrors = 0
             print('training epoch ' + str(epoch))
             for i in range(nsamples):
                 image_class = self.trY[i]
@@ -32,15 +32,24 @@ class perceptron_mnist:
                 predicted_class = self.classify(features)
                 if predicted_class != image_class:
                     nerrors += 1
-                    # TODO update weights to predict better next time
+                    # self.w[:,image_class] zvysit tam kde jsou jednicky
+                    self.w[:,image_class] += features * self.learning_rate
+                    # self.w[:,predicted_class] snizit tam kde jsou jednicky
+                    self.w[:,predicted_class] -= features * self.learning_rate
+                    # TODO update weights to predict better next time\
+
             print('training errors: ' + str(nerrors/nsamples))
         
 
     def test(self, get_features):
         ncorrect = 0
+        confusion = np.zeros((self.NCLASSES, self.NCLASSES), np.int32)
+
         for i in range(self.teX.shape[0]):
             features = get_features(self.teX[i])
             prediction = self.classify(features)
+            confusion[self.teY[i], prediction] += 1
             if (prediction == self.teY[i]):
                 ncorrect += 1
         print('success rate on testing data: ' + str(ncorrect/i))
+        print(confusion)
