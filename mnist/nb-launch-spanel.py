@@ -3,6 +3,7 @@ import mnist
 import pdb
 from descriptors import white_features, black_features, nwhite_features, random_features, top_heavy, ones, edges
 from nb import nb_mnist
+from perceptron import perceptron_mnist
 
 def get_features(X):
     return np.concatenate((
@@ -15,6 +16,7 @@ def get_features(X):
         edges.get_features(X),
     ))
 
-classifier = nb_mnist()
-classifier.train(get_features)
+# classifier = nb_mnist()
+classifier = perceptron_mnist(1)
+classifier.train(get_features,3)
 classifier.test(get_features)
