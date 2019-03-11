@@ -2,6 +2,7 @@ import numpy as np
 import mnist
 import pdb
 from descriptors import *
+import sys
 
 class perceptron_mnist:
 
@@ -26,7 +27,8 @@ class perceptron_mnist:
         for epoch in range(nepochs):
             nerrors = 0
             print('training epoch ' + str(epoch))
-            for i in range(nsamples):
+            for i in range(nsamples):                
+                sys.stdout.flush()
                 image_class = self.trY[i]
                 features = get_features(self.trX[i])
                 predicted_class = self.classify(features)
@@ -37,7 +39,7 @@ class perceptron_mnist:
                     # self.w[:,predicted_class] snizit tam kde jsou jednicky
                     self.w[:,predicted_class] -= features * self.learning_rate
                     # TODO update weights to predict better next time\
-
+                sys.stdout.write(' image {} error {}\r'.format(i, nerrors/(i+1)))
             print('training errors: ' + str(nerrors/nsamples))
         
 
