@@ -6,6 +6,7 @@ from visualize import visualize_matrix
 def get_features(X):
     pixels = X
     height, width = pixels.shape
+    pixels -= .2
     edges = X[2:,:] - X[:height-2,:]
     ret = np.zeros(edges.shape)
     ret[edges > 0] = 1
