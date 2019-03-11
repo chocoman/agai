@@ -25,18 +25,11 @@ class perceptron_mnist:
         nsamples = self.trX.shape[0]
         #Adjusting the learning rate every 50 epochs
         for epoch in range(nepochs): 
-            if epoch == 250:
-                self.learning_rate /= 10
-            elif epoch == 200:
-                self.learning_rate /= 10
-            elif epoch == 150:
-                self.learning_rate /= 10
-            elif epoch == 100:
-                self.learning_rate /= 10
-            elif epoch == 50:
-                self.learning_rate /= 10
-            if epoch%10 == 0:
+            if epoch % 20 ==0:
+                self.learning_rate /= 8
+            if epoch % 10 == 1:                
                 self.test(get_features)
+            
             nerrors = 0
             print('training epoch ' + str(epoch))
             for i in range(nsamples):
