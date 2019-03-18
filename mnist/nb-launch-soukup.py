@@ -1,7 +1,7 @@
 import numpy as np
 import mnist
 import pdb
-from descriptors import black_features, nwhite_features, top_heavy, edges, edges90, edges180, edges270, bot_heavy, joints
+from descriptors import black_features, nwhite_features, top_heavy, edges, edges90, edges180, edges270, bot_heavy, joints, connected
 from nb import nb_mnist
 from perceptron_soukup import perceptron_mnist
 
@@ -16,6 +16,7 @@ def get_features(X):
         edges270.get_features(X),
         #bot_heavy.get_features(X),
         joints.get_features(X),
+        connected.get_features(X),
 
     ))
 
