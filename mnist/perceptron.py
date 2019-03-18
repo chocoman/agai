@@ -24,12 +24,18 @@ class perceptron_mnist:
         # self.w[f, c] is score for class c if feature f is detected
         self.w = np.zeros((self.nfeatures, self.NCLASSES))
         nsamples = self.trX.shape[0]
+        all_features = np.zeros((nsamples, self.nfeatures))
+        print('recognizing features...')
+        for i in range(nsamples):
+            all_features[i,:] = get_features(self.trX[i])
+        print('features recognized')
         for epoch in range(nepochs):
             nerrors = 0
             print('training epoch ' + str(epoch))
             for i in range(nsamples):                
                 image_class = self.trY[i]
-                features = get_features(self.trX[i])
+                # features = get_features(self.trX[i])
+                features = all_features[i,:]
                 predicted_class = self.classify(features)
                 if predicted_class != image_class:
                     nerrors += 1
