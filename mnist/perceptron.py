@@ -30,11 +30,11 @@ class perceptron_mnist:
         for i in range(nsamples):
             all_features[i,:] = get_features(self.trX[i])
         print('features recognized')
-        for k in range(nepochs):
+        for k in range(len(nepochs)):
             self.learning_rate = meta_epoch[k]
             self.test(get_features)
             print ("Learning rate now set to " + str(self.learning_rate))
-            for epoch in range(nepochs):
+            for epoch in range(nepochs[k]):
                 nerrors = 0            
                 for i in range(nsamples):                
                     image_class = self.trY[i]
@@ -51,7 +51,7 @@ class perceptron_mnist:
                     if (i % 2000 == 0):
                         sys.stdout.flush()
                         sys.stdout.write(' image {} error {}\r'.format(i, nerrors/(i+1)))
-                print('training errors: ' + str(nerrors/nsamples))
+                print('training errors: ' + str(nerrors/nsamples) + "on epoch " + str(k + 1) + "." + str(nepochs[k]))
         
 
     def test(self, get_features):
