@@ -3,6 +3,7 @@ import mnist
 import pdb
 from descriptors import *
 import sys
+from time import time
 
 class perceptron_mnist:
 
@@ -12,6 +13,7 @@ class perceptron_mnist:
         self.NCLASSES = 10
         self.w = None
         self.learning_rate = learning_rate
+        self.time_start = time()
 
     def classify(self, features):
         scores = np.dot(features, self.w)
@@ -51,7 +53,7 @@ class perceptron_mnist:
                     if (i % 2000 == 0):
                         sys.stdout.flush()
                         sys.stdout.write(' image {} error {}\r'.format(i, nerrors/(i+1)))
-                print('training errors: ' + str(nerrors/nsamples) + "on epoch " + str(k + 1) + "." + str(nepochs[k]))
+                print('training errors: ' + str(nerrors/nsamples) + " on epoch " + str(k + 1) + "." + str(epoch) + ", in " + str(time() - self.time_start) + " s.")
         
 
     def test(self, get_features):

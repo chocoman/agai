@@ -7,5 +7,5 @@ Samuel Soukup:
 	12.3.2019: black_features, edges, edges90, edges180, edges270, joints, perceptron: 0.9601960196019602, 578.6s, 2.6GHz i7-3720QM
 Jiri Laska:
 	18.2.2019: edges, hedges - 0.76
-	4.3.2019: edges, hedges; perceptron - +- 0.90
+	4.3.2019: edges, hedges; perceptron - +- 0.907
 
