@@ -19,12 +19,24 @@ class perceptron_mnist:
         scores = np.dot(features, self.w)
         guess = np.argmax(scores)
         return guess
+    
+    def save(self, filename):
+        with open(filename + '.npy', 'wb') as f:
+            np.save(f, self.w)
 
+    def load(self, filename):
+        with open(filename + '.npy', 'rb') as f:
+            self.w = np.load(f)
 
     def train(self, get_features, nepochs,meta_epoch = (10,1,0.1,0.1,0.1)):
+        try:
+            iterator = iter(nepochs)
+        except TypeError:
+            nepochs = [nepochs] # enforce that nepochs is an array
         self.nfeatures = len(get_features(self.trX[0]))
         # self.w[f, c] is score for class c if feature f is detected
-        self.w = np.zeros((self.nfeatures, self.NCLASSES))
+        if type(self.w) == type(None):
+            self.w = np.zeros((self.nfeatures, self.NCLASSES))
         nsamples = self.trX.shape[0]
         #Adjusting the learning rate every 8 epochs
         all_features = np.zeros((nsamples, self.nfeatures))
@@ -54,6 +66,9 @@ class perceptron_mnist:
                         sys.stdout.flush()
                         sys.stdout.write(' image {} error {}\r'.format(i, nerrors/(i+1)))
                 print('training errors: ' + str(nerrors/nsamples) + " on epoch " + str(k + 1) + "." + str(epoch) + ", in " + str(time() - self.time_start) + " s.")
+        filename = input('enter file name to save (leave empty to skip):')
+        if filename != '':
+            self.save(filename)
         
 
     def test(self, get_features):
@@ -68,3 +83,4 @@ class perceptron_mnist:
                 ncorrect += 1
         print('success rate on testing data: ' + str(ncorrect/i))
         print(confusion)
+
