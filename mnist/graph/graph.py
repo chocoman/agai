@@ -31,9 +31,17 @@ class Graph:
                 if(self.vzdalenost[s] < 0):
                     self.vzdalenost[s] = self.vzdalenost[ukol]+1
                     self.ukoly.append(s)
+
+    def pocet_nedosazitelnych(self, v):
+        self.BFS(v)
         n_dosazenych = np.sum(self.vzdalenost != -1)
         n_zdi = np.sum(self.zdi != 0)
         return (self.N - n_dosazenych - n_zdi)
+
+    def pozice_nedosazitelnych(self, v):
+        self.BFS(v)
+        return np.logical_and(self.vzdalenost != -1, self.zdi == 0)
+        
         
     def from_image(self, image):
         h, w  = image.shape
@@ -44,7 +52,7 @@ class Graph:
         self.ukoly = []            # seznam ukolu pro BFS.
         for i in range(h):     # i je cislo radku.vypisStav
             for j in range(w): # j je cislo sloupce.
-                if image[i,j] != 0:
+                if image[i,j] > 0:
                     self.zdi[w*i+j] = 1
         self.seznamySousedu = []
         for v in range(self.N):

@@ -27,7 +27,7 @@ class perceptron_mnist:
         for epoch in range(nepochs): 
             if epoch % 20 ==0:
                 self.learning_rate /= 8
-            if epoch % 2 == 1:                
+            if epoch % 10 == 1:                
                 self.test(get_features)
             
             nerrors = 0

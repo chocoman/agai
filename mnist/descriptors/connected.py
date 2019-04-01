@@ -6,8 +6,8 @@ from visualize import visualize_matrix
 from graph import graph
 def get_features(X, weight = 1000):
     pixels = X
-    g = graph.Graph(X)
-    nunreachable = g.BFS(0)
+    g = graph.Graph(np.round(X))
+    nunreachable = g.pocet_nedosazitelnych(0)
     ret = np.zeros(weight)
     
     if (nunreachable != 0):
