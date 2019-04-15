@@ -14,11 +14,11 @@ def get_features(X):
         # top_heavy.get_features(X),
         # ones.get_features(X),
         edges.get_features(X),
-        connected.get_features(X, 1000),
+        # connected.get_features(X, 1000),
         # random_features.get_features(X),
     ))
 
 # classifier = nb_mnist()
 classifier = perceptron_mnist(4)
-classifier.train(get_features,1)
+classifier.train(get_features,5)
 classifier.test(get_features)
