@@ -20,5 +20,8 @@ def get_features(X):
 
 # classifier = nb_mnist()
 classifier = perceptron_mnist(4)
-classifier.train(get_features,5)
+filename = input('load perceptron from file (leave empty to skip):')
+if filename != '':
+    classifier.load(filename)
+classifier.train(get_features,1)
 classifier.test(get_features)
