@@ -17,13 +17,12 @@ def grads(X, Y, weights):
         grads[i-1] = a[i-1].T.dot(delta)
     return grads / len(X)
 
-trX, trY, teX, teY = mnist.load_data(flatten=True)
-weights = [np.random.randn(*w) * 0.1 for w in [(784, 100), (100, 10)]]
-num_epochs, batch_size, learn_rate = 30, 20, 0.1
 
-for i in range(num_epochs):
-    for j in range(0, len(trX), batch_size):
-        X, Y = trX[j:j+batch_size], trY[j:j+batch_size]
-        weights -= learn_rate * grads(X, Y, weights)
-    prediction = np.argmax(feed_forward(teX, weights)[-1], axis=1)
-    print(str(i) + ': ' + str(np.mean(prediction == np.argmax(teY, axis=1))))
+def train(trX, trY, teX, teY, weights, num_epochs=3, batch_size=20, learn_rate=0.1):
+    for i in range(num_epochs):
+        for j in range(0, len(trX), batch_size):
+            X, Y = trX[j:j+batch_size], trY[j:j+batch_size]
+            weights -= learn_rate * grads(X, Y, weights)
+        prediction = np.argmax(feed_forward(teX, weights)[-1], axis=1)
+        print(str(i) + ': ' + str(np.mean(prediction == np.argmax(teY, axis=1))))
+
