@@ -1,6 +1,6 @@
 import numpy as np
 import pdb
-# authors: Martin Spanel
+# authors: Jirka Láska <3
 
 def get_features(X):
     pixels = X
