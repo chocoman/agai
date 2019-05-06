@@ -1,5 +1,6 @@
 import numpy as np
 import mnist
+import pdb
 
 def feed_forward(X, weights):
     a = [X]
@@ -25,4 +26,3 @@ def train(trX, trY, teX, teY, weights, num_epochs=3, batch_size=20, learn_rate=0
             weights -= learn_rate * grads(X, Y, weights)
         prediction = np.argmax(feed_forward(teX, weights)[-1], axis=1)
         print(str(i) + ': ' + str(np.mean(prediction == np.argmax(teY, axis=1))))
-
