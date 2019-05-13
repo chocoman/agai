@@ -35,6 +35,6 @@ pip3 install tensorflow
 pip3 install pytorch
 ```
 ## užitečné knihovny pro python
-OpenCV: počítačové vidění, zpracování obrazu, jednoduché algoritmy nad obrázky a videem.
-Neuronové sítě: keras (nejjednodušší), tensorflow (nejsložitější), pytorch (kompromis)
-starší strojové učení: scikit-learn
+- OpenCV: počítačové vidění, zpracování obrazu, jednoduché algoritmy nad obrázky a videem.
+- Neuronové sítě: keras (nejjednodušší), tensorflow (nejsložitější), pytorch (kompromis)
+- starší strojové učení: scikit-learn
