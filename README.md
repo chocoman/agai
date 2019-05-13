@@ -13,6 +13,8 @@ Jiri Laska:
 - 4.3.2019: edges, hedges; perceptron - +- 0.907
 
 ## návody:
+### python style guide:
+- https://www.python.org/dev/peps/pep-0008/
 ### git
 - TODO
 ### tensorflow
