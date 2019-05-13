@@ -17,15 +17,20 @@ Jiri Laska:
 - TODO
 ### tensorflow
 - instalace starsi verze kompatibilni se skolnimi pocitaci: 
- '''
- pip3 install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.5.1-cp36-cp36m-linux_x86_64.whl
- '''
-- instalace aktualni verze na novych pocitacich:
-'''
-pip3 install tensorflow
-'''
 
-# pytorch
-'''
+```
+ pip3 install https://storage.googleapis.com/tensorflow/linux/cpu/tensorflow-1.5.1-cp36-cp36m-linux_x86_64.whl
+```
+
+- instalace aktualni verze na novych pocitacich:
+
+```
+pip3 install tensorflow
+```
+
+### pytorch
+-instalace: 
+
+```
 pip3 install pytorch
-'''
+```
